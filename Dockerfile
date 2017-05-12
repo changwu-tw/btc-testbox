@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:14.04
 
 # add bitcoind from the official PPA
 # install bitcoind (from PPA) and make
