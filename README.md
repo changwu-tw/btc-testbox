@@ -28,42 +28,84 @@ $ make start
 ## Check the status of the nodes
 
 ```
-$ make getinfo
-bitcoin-cli -datadir=1  getinfo
+$ make getnetworkinfo
+bitcoin-cli -datadir=1  getnetworkinfo
 {
-    "version" : 90300,
-    "protocolversion" : 70002,
-    "walletversion" : 60000,
-    "balance" : 0.00000000,
-    "blocks" : 0,
-    "timeoffset" : 0,
-    "connections" : 1,
-    "proxy" : "",
-    "difficulty" : 0.00000000,
-    "testnet" : false,
-    "keypoololdest" : 1413617762,
-    "keypoolsize" : 101,
-    "paytxfee" : 0.00000000,
-    "relayfee" : 0.00001000,
-    "errors" : ""
+  "version": 160000,
+  "subversion": "/Satoshi:0.16.0/",
+  "protocolversion": 70015,
+  "localservices": "000000000000040d",
+  "localrelay": true,
+  "timeoffset": 0,
+  "networkactive": true,
+  "connections": 1,
+  "networks": [
+    {
+      "name": "ipv4",
+      "limited": false,
+      "reachable": true,
+      "proxy": "",
+      "proxy_randomize_credentials": false
+    },
+    {
+      "name": "ipv6",
+      "limited": false,
+      "reachable": true,
+      "proxy": "",
+      "proxy_randomize_credentials": false
+    },
+    {
+      "name": "onion",
+      "limited": true,
+      "reachable": false,
+      "proxy": "",
+      "proxy_randomize_credentials": false
+    }
+  ],
+  "relayfee": 0.00001000,
+  "incrementalfee": 0.00001000,
+  "localaddresses": [
+  ],
+  "warnings": ""
 }
-bitcoin-cli -datadir=2  getinfo
+bitcoin-cli -datadir=2  getnetworkinfo
 {
-    "version" : 90300,
-    "protocolversion" : 70002,
-    "walletversion" : 60000,
-    "balance" : 0.00000000,
-    "blocks" : 0,
-    "timeoffset" : 0,
-    "connections" : 1,
-    "proxy" : "",
-    "difficulty" : 0.00000000,
-    "testnet" : false,
-    "keypoololdest" : 1413617762,
-    "keypoolsize" : 101,
-    "paytxfee" : 0.00000000,
-    "relayfee" : 0.00001000,
-    "errors" : ""
+  "version": 160000,
+  "subversion": "/Satoshi:0.16.0/",
+  "protocolversion": 70015,
+  "localservices": "000000000000040d",
+  "localrelay": true,
+  "timeoffset": 0,
+  "networkactive": true,
+  "connections": 1,
+  "networks": [
+    {
+      "name": "ipv4",
+      "limited": false,
+      "reachable": true,
+      "proxy": "",
+      "proxy_randomize_credentials": false
+    },
+    {
+      "name": "ipv6",
+      "limited": false,
+      "reachable": true,
+      "proxy": "",
+      "proxy_randomize_credentials": false
+    },
+    {
+      "name": "onion",
+      "limited": true,
+      "reachable": false,
+      "proxy": "",
+      "proxy_randomize_credentials": false
+    }
+  ],
+  "relayfee": 0.00001000,
+  "incrementalfee": 0.00001000,
+  "localaddresses": [
+  ],
+  "warnings": ""
 }
 ```
 
@@ -93,7 +135,35 @@ $ make generate BLOCKS=200
 
 ## Verify that there is a balance on the first wallet
 ```
-$ make getinfo
+$ make getwalletinfo
+bitcoin-cli -datadir=1  getwalletinfo
+{
+  "walletname": "wallet.dat",
+  "walletversion": 159900,
+  "balance": 5550.00000000,
+  "unconfirmed_balance": 0.00000000,
+  "immature_balance": 3450.00000000,
+  "txcount": 211,
+  "keypoololdest": 1520705125,
+  "keypoolsize": 999,
+  "keypoolsize_hd_internal": 1000,
+  "paytxfee": 0.00000000,
+  "hdmasterkeyid": "7c157dd7da402a2f9628628a9069227fcb703587"
+}
+bitcoin-cli -datadir=2  getwalletinfo
+{
+  "walletname": "wallet.dat",
+  "walletversion": 159900,
+  "balance": 0.00000000,
+  "unconfirmed_balance": 0.00000000,
+  "immature_balance": 0.00000000,
+  "txcount": 0,
+  "keypoololdest": 1520705125,
+  "keypoolsize": 1000,
+  "keypoolsize_hd_internal": 1000,
+  "paytxfee": 0.00000000,
+  "hdmasterkeyid": "39ffb247125a88fcab204633a3af7887676c54a6"
+}
 ```
 
 ## Generate a wallet address for the second wallet
@@ -105,18 +175,47 @@ $ make address2
 To send bitcoins that you've generated to the second wallet: (be sure to change the ADDRESS value below to wallet address generated in the prior command)
 
 ```
-$ make sendfrom1 ADDRESS=mxwPtt399zVrR62ebkTWL4zbnV1ASdZBQr AMOUNT=10
+$ make sendfrom1 ADDRESS=2NGXMJYzSkNjXEhYxsN3WmtYWext3rD2bMU AMOUNT=10
 ```
 
 ## Does the balance show up?
 Run the getinfo command again. Does the balance show up? Why not?
 ```
-$ make getinfo
+$ make getwalletinfo
 ```
 
 ## Generate another block
 ```
 $ make generate
+$ make getwalletinfo
+bitcoin-cli -datadir=1  getwalletinfo
+{
+  "walletname": "wallet.dat",
+  "walletversion": 159900,
+  "balance": 5589.99996240,
+  "unconfirmed_balance": 0.00000000,
+  "immature_balance": 3425.00003760,
+  "txcount": 213,
+  "keypoololdest": 1520705125,
+  "keypoolsize": 999,
+  "keypoolsize_hd_internal": 1000,
+  "paytxfee": 0.00000000,
+  "hdmasterkeyid": "7c157dd7da402a2f9628628a9069227fcb703587"
+}
+bitcoin-cli -datadir=2  getwalletinfo
+{
+  "walletname": "wallet.dat",
+  "walletversion": 159900,
+  "balance": 10.00000000,
+  "unconfirmed_balance": 0.00000000,
+  "immature_balance": 0.00000000,
+  "txcount": 1,
+  "keypoololdest": 1520705125,
+  "keypoolsize": 999,
+  "keypoolsize_hd_internal": 1000,
+  "paytxfee": 0.00000000,
+  "hdmasterkeyid": "39ffb247125a88fcab204633a3af7887676c54a6"
+}
 ```
 
 ## Stopping the testnet-box
