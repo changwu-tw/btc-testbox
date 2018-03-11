@@ -10,7 +10,7 @@ RUN apt-get update && \
     add-apt-repository -y ppa:bitcoin/bitcoin && \
     apt-get update && \
 	apt-get install -y bitcoind make && \
-    apt-get install -y vim zsh wget git sudo && \
+    apt-get install -y vim zsh wget git sudo jq && \
     wget -qO- https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | zsh || true && \
     wget -qO- https://github.com/jingweno/ccat/releases/download/v1.1.0/linux-amd64-1.1.0.tar.gz | tar -zxf- && \
     cp linux-amd64-1.1.0/ccat /usr/local/bin/ && \
